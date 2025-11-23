@@ -1,12 +1,8 @@
 package com.flmhospitals.model;
-
 import java.time.LocalDate;
-
 import com.flmhospitals.enums.Specialization;
 import com.flmhospitals.enums.StaffType;
 import com.flmhospitals.utils.StaffEntityListner;
-import com.flmhospitals.utils.StaffIdGenerator;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,9 +12,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
-import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -79,6 +73,23 @@ public class Staff {
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "staffDetailsId")
 	private StaffDetails staffDetails;
-	
 
+	public Staff(String firstName, String lastName, String gender, String phoneNumber, StaffType staffType, String role,
+			Specialization specialization, LocalDate dateOfJoining, int experienceInYears, boolean canLogin,
+			boolean isEmployeeActive, StaffAddress staffAddress, StaffDetails staffDetails) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.gender = gender;
+		this.phoneNumber = phoneNumber;
+		this.staffType = staffType;
+		this.role = role;
+		this.specialization = specialization;
+		this.dateOfJoining = dateOfJoining;
+		this.experienceInYears = experienceInYears;
+		this.canLogin = canLogin;
+		this.isEmployeeActive = isEmployeeActive;
+		this.staffAddress = staffAddress;
+		this.staffDetails = staffDetails;
+	}	
 }

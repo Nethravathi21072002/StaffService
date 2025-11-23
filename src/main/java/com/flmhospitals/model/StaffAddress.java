@@ -23,7 +23,7 @@ public class StaffAddress {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long staffAddressId;
 
-    private String street;
+    private String landmark;
 
     private String city;
 
@@ -33,9 +33,9 @@ public class StaffAddress {
 
     private String pinCode;
 
-	public StaffAddress(String street, String city, String state, String country, String pinCode) {
+	public StaffAddress(String landmark, String city, String state, String country, String pinCode) {
 		super();
-		this.street = street;
+		this.landmark = landmark;
 		this.city = city;
 		this.state = state;
 		this.country = country;

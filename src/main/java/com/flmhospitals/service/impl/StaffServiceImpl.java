@@ -1,14 +1,11 @@
 package com.flmhospitals.service.impl;
 
 
-import java.util.Optional;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
 import com.flmhospitals.builder.StaffBuilder;
 import com.flmhospitals.builder.StaffDtoBuilder;
 import com.flmhospitals.dao.StaffRepository;
@@ -31,16 +28,17 @@ public class StaffServiceImpl implements StaffService {
 		this.staffIdGenerator = staffIdGenerator;
 	}
 
- @Override
+	@Override
 	public Staff getStaffByStaffId(String staffId) {
 		return staffRepository.findById(staffId)
-				.orElseThrow(() -> new StaffNotFoundException("Staff with ID :"+ staffId+" not found"));
-  }
+				.orElseThrow(() -> new StaffNotFoundException("Staff with ID :" + staffId + " not found"));
+	}
 
 	@Override
 	public ResponseEntity<List<StaffDetailsDto>> searchByStaffFirstNameOrLastName(String name) {
 
-		List<Staff> staffs = staffRepository.findByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(name, name);
+		List<Staff> staffs = staffRepository.findByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(name,
+				name);
 
 		List<StaffDetailsDto> staffDetailsDtoList = new ArrayList<>();
 
@@ -57,24 +55,50 @@ public class StaffServiceImpl implements StaffService {
 
 	@Override
 	public StaffDetailsDto registerStaffDeatils(RegisterStaffDto registerStaffDto) {
-		// TODO Auto-generated method stub
-		
-		Staff staff =  StaffBuilder.buildStaffFromRegisterStaffDto(registerStaffDto);
-		boolean roleFlag = registerStaffDto.getStaffType().equals(StaffType.DOCTOR);//
+
+		Staff staff = StaffBuilder.buildStaffFromRegisterStaffDto(registerStaffDto);
+		boolean roleFlag = registerStaffDto.getStaffType().equals(StaffType.DOCTOR);
 		if (roleFlag) {
 			staff.setRole("Admin");
 			staff.setCanLogin(true);
-		}
-		else {
+		} else {
 			staff.setRole("Non-Admin");
 		}
 		staff.setEmployeeActive(true);
-		
-		 Staff registerdStaff =  staffRepository.save(staff);
-		 
+
+		Staff registerdStaff = staffRepository.save(staff);
+
 		return StaffDtoBuilder.buildStaffDetailsDto(registerdStaff);
 	}
-		
-	
-	
+
+
+	@Override
+	public StaffDetailsDto updateStaff(String staffId, RegisterStaffDto dto) {
+		Staff existingStaff = staffRepository.findById(staffId)
+				.orElseThrow(() -> new StaffNotFoundException("Staff ID: " + staffId + " not found"));
+
+		Staff updatedStaff = StaffBuilder.buildStaffFromRegisterStaffDto(dto);
+		updatedStaff.setStaffId(existingStaff.getStaffId());
+		updatedStaff.getStaffAddress().setStaffAddressId(existingStaff.getStaffAddress().getStaffAddressId());
+		updatedStaff.getStaffDetails().setStaffDetailsId(existingStaff.getStaffDetails().getStaffDetailsId());
+		Staff savedStaff = staffRepository.save(updatedStaff);
+		return StaffDtoBuilder.buildStaffDetailsDto(savedStaff);
+
+	}
+
+	@Override
+	public String deleteStaff(String staffId) {
+
+		Staff staff = staffRepository.findById(staffId)
+				.orElseThrow(() -> new StaffNotFoundException("No staff Found with the Id :" + staffId));
+
+		staff.setEmployeeActive(false);
+
+		staffRepository.save(staff);
+
+		return staff.getFirstName() + " " + staff.getLastName();
+
+	}
+
+
 }

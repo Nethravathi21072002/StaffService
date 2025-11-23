@@ -18,7 +18,9 @@ public class RegisterStaffDto {
 	
 	private String lastName;
 	
-	private long phoneNumber;
+	private String phoneNumber;
+	
+	private String role;
 	
 	private String gender;
 	
