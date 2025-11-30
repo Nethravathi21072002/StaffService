@@ -13,17 +13,18 @@ public class StaffBuilder {
 		
 		return Staff.builder()
 
-		         .firstName(registerStaffDto.getFirstName())
-		         .lastName(registerStaffDto.getLastName())
-		         .phoneNumber(String.valueOf(registerStaffDto.getPhoneNumber()))
-		         .gender(registerStaffDto.getGender())
-		 		 .dateOfJoining(registerStaffDto.getDateOfJoining())
-		         .staffType(registerStaffDto.getStaffType())
-		         .specialization(registerStaffDto.getSpecialization())
-		         .experienceInYears(registerStaffDto.getExperienceInYears())
-		         .staffAddress(buildStaffAdddressFromStaffAddressDto(registerStaffDto.getStaffAddressDto()))
-		         .staffDetails(buildStaffDetailsFromStaffDetailsDto(registerStaffDto.getEmail()))
-		         .build();
+		.firstName(registerStaffDto.getFirstName())
+		.lastName(registerStaffDto.getLastName())
+		.phoneNumber(String.valueOf(registerStaffDto.getPhoneNumber()))
+		.gender(registerStaffDto.getGender())
+		.dateOfJoining(registerStaffDto.getDateOfJoining())
+		.staffType(registerStaffDto.getStaffType())
+		.specialization(registerStaffDto.getSpecialization())
+		.experienceInYears(registerStaffDto.getExperienceInYears())
+		.dateOfJoining(registerStaffDto.getDateOfJoining())
+		.staffAddress(buildStaffAdddressFromStaffAddressDto(registerStaffDto.getStaffAddressDto()))
+		.staffDetails(buildStaffDetailsFromStaffDetailsDto(registerStaffDto.getEmail()))
+		.build();
 
 		
 	}

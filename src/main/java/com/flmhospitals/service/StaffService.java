@@ -18,5 +18,8 @@ public interface StaffService {
 	 StaffDetailsDto registerStaffDeatils(RegisterStaffDto registerStaffDto);
 
 	String deleteStaff(String staffId);
+	
+	
+
 
 }
