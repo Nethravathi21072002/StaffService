@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,8 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.flmhospitals.service.DoctorScheduleService;
 
 @RestController
-@RequestMapping(""
-		+ "")
+@RequestMapping("/doctorSchedule")
 public class DoctoreScheduleController {
 
 	private final DoctorScheduleService doctorScheduleService;
@@ -34,7 +34,10 @@ public class DoctoreScheduleController {
 	@GetMapping("/isDoctorAvailable")
 	public ResponseEntity<Boolean> isDoctorAvailable(@RequestParam("staffId") String staffId,
 			@RequestParam("date") String date) {
+		
+	
 		LocalDate localDate = LocalDate.parse(date);
+		
 		return ResponseEntity.ok(doctorScheduleService.isDoctorAvailable(staffId, localDate));
 	}
 
@@ -44,6 +47,8 @@ public class DoctoreScheduleController {
 
 		List<LocalDate> doctorScheduleResponse = doctorScheduleService.markDoctorUnavailable(doctorId,
 				listOfUnavailableDates);
+		
+		System.out.println("-------DSR-------- "+doctorScheduleResponse);
 
 		return ResponseEntity.status(HttpStatus.CREATED).body(doctorScheduleResponse);
 	}

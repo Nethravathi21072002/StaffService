@@ -1,5 +1,7 @@
 package com.flmhospitals.model;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,12 +30,24 @@ public class StaffDetails {
     private String email;
 
     private String password;
+    
+    private String resetOtp;
+    
+    private LocalDateTime otpExpiryTime;
 
-	public StaffDetails(String email, String password, StaffAddress address) {
+	public StaffDetails(String email, String password, StaffAddress address, String resetOtp, LocalDateTime otpExpiryTime) {
 		super();
 		this.email = email;
 		this.password = password;
+		this.resetOtp = resetOtp;
+		this.otpExpiryTime = otpExpiryTime;
+	}
+
+	public StaffDetails(String email) {
+		super();
+		this.email = email;
 	}
     
+	
     
 }

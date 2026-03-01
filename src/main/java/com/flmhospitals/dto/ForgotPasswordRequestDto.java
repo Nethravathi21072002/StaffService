@@ -7,16 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class StaffAddressDto {
-	
-	private String landmark;
-	
-	private String city;
-	
-	private String state;
-	
-	private String country;
-	
-	private String pinCode;
-
+public class ForgotPasswordRequestDto {
+    private String email;
 }

@@ -38,6 +38,10 @@ public class StaffDetailsDto {
 	
 	private StaffType staffType;
 	
+	private boolean isEmployeeActive;
+	
+	private boolean canLogin;
+	
 	private StaffAddressDto staffAddressDto;
 	
 

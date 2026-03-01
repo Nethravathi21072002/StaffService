@@ -4,7 +4,9 @@ package com.flmhospitals.service;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
 import com.flmhospitals.dto.RegisterStaffDto;
+import com.flmhospitals.dto.ResetPasswordRequest;
 import com.flmhospitals.dto.StaffDetailsDto;
+import com.flmhospitals.dto.VerifyOtpRequest;
 import com.flmhospitals.model.Staff;
 
 public interface StaffService {
@@ -17,7 +19,17 @@ public interface StaffService {
 	
 	 StaffDetailsDto registerStaffDeatils(RegisterStaffDto registerStaffDto);
 
-	String deleteStaff(String staffId);
+	 String deleteStaff(String staffId);
+
+	 String getDoctorName(String doctorId);
+
+	 List<StaffDetailsDto> getAllStaff();
+
+	 void sendOtp(String email);
+
+	 void verifyOtp(VerifyOtpRequest request);
+
+	 void resetPassword(ResetPasswordRequest request);  
 	
 	
 

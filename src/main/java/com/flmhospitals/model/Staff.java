@@ -51,7 +51,7 @@ public class Staff {
 	private String role;
 	
 	@Enumerated(EnumType.STRING)
-	@Column(nullable = false)
+	@Column(nullable = false,length = 50)
 	private Specialization specialization;
 	
 	@Column(nullable = false)
@@ -59,6 +59,9 @@ public class Staff {
 	
 	@Column(nullable = false)
 	private int experienceInYears;
+	
+	@Column(nullable = false)
+	private String email;
 	
 	@Column(nullable = false)
 	private boolean canLogin;
@@ -91,5 +94,6 @@ public class Staff {
 		this.isEmployeeActive = isEmployeeActive;
 		this.staffAddress = staffAddress;
 		this.staffDetails = staffDetails;
-	}	
+	}
+
 }

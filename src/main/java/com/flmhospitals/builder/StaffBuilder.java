@@ -1,5 +1,7 @@
 package com.flmhospitals.builder;
 
+import java.util.Random;
+
 import org.springframework.beans.BeanUtils;
 import com.flmhospitals.dto.RegisterStaffDto;
 import com.flmhospitals.dto.StaffAddressDto;
@@ -21,12 +23,12 @@ public class StaffBuilder {
 		.staffType(registerStaffDto.getStaffType())
 		.specialization(registerStaffDto.getSpecialization())
 		.experienceInYears(registerStaffDto.getExperienceInYears())
-		.dateOfJoining(registerStaffDto.getDateOfJoining())
-		.staffAddress(buildStaffAdddressFromStaffAddressDto(registerStaffDto.getStaffAddressDto()))
+		.email(registerStaffDto.getEmail())
+		.role(registerStaffDto.getRole())
 		.staffDetails(buildStaffDetailsFromStaffDetailsDto(registerStaffDto.getEmail()))
+		.staffAddress(buildStaffAdddressFromStaffAddressDto(registerStaffDto.getStaffAddressDto()))
 		.build();
 
-		
 	}
 	
 	public static StaffAddress buildStaffAdddressFromStaffAddressDto(StaffAddressDto staffAddressDto) {
@@ -34,8 +36,10 @@ public class StaffBuilder {
 
 		StaffAddress staffAddress = new StaffAddress();
 		
-		 BeanUtils.copyProperties(staffAddressDto, staffAddress);
+		System.out.println("Staff Address Dto" + staffAddressDto);
 		
+		 BeanUtils.copyProperties(staffAddressDto, staffAddress);
+
 		return staffAddress;
 
 	}
@@ -44,6 +48,40 @@ public class StaffBuilder {
 		
 		return StaffDetails.builder()
 				.email(email)
+				.password(generateSixDigitPassword())
 				.build();
 	}
+	
+	public static String generateSixDigitPassword() {
+        Random random = new Random();
+        int password = 100000 + random.nextInt(900000);
+        return String.valueOf(password);
+    }
+	
+	public static Staff updateStaffBuilder(RegisterStaffDto dto, Staff existingStaff) {
+		existingStaff.setFirstName(dto.getFirstName());
+	    existingStaff.setLastName(dto.getLastName());
+	    existingStaff.setPhoneNumber(String.valueOf(dto.getPhoneNumber()));
+	    existingStaff.setGender(dto.getGender());
+	    existingStaff.setDateOfJoining(dto.getDateOfJoining());
+	    existingStaff.setStaffType(dto.getStaffType());
+	    existingStaff.setSpecialization(dto.getSpecialization());
+	    existingStaff.setExperienceInYears(dto.getExperienceInYears());
+	    existingStaff.setRole(dto.getRole());
+
+	    StaffDetails details = existingStaff.getStaffDetails();
+	    details.setEmail(dto.getEmail());
+	    
+	    StaffAddress address = existingStaff.getStaffAddress();
+	    StaffAddressDto addrDto = dto.getStaffAddressDto();
+
+	    address.setLandmark(addrDto.getLandmark());
+	    address.setCity(addrDto.getCity());
+	    address.setState(addrDto.getState());
+	    address.setCountry(addrDto.getCountry());
+	    address.setPinCode(addrDto.getPinCode());
+	    
+	    return existingStaff;
+	}
+
 }
